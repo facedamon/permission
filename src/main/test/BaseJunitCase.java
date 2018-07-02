@@ -1,5 +1,3 @@
-import com.mmall.common.ApplicationContextHelper;
-import com.mmall.controller.SysUserController;
 import com.mmall.param.UserParam;
 import com.mmall.service.SysUserService;
 import com.mmall.util.PasswordUtil;
@@ -36,6 +34,4 @@ public class BaseJunitCase {
         userParam.setId(1);
         sysUserService.update(userParam);
     }
-
-
 }

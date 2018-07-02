@@ -27,7 +27,7 @@ public class SysUserService {
 
     public void save(UserParam userParam){
         BeanValidator.check(userParam);
-        if (checkTelPhoneExis(userParam.getTelephone(),userParam.getId())){
+        if (checkTelePhoneExis(userParam.getTelephone(),userParam.getId())){
             throw new ParamException("电话已被占用");
         }
         if (checkEmailExis(userParam.getMail(),userParam.getId())){
@@ -69,7 +69,7 @@ public class SysUserService {
      */
     public void update(UserParam userParam){
         BeanValidator.check(userParam);
-        if (checkTelPhoneExis(userParam.getTelephone(),userParam.getId())){
+        if (checkTelePhoneExis(userParam.getTelephone(),userParam.getId())){
             throw new ParamException("电话已被占用");
         }
         if (checkEmailExis(userParam.getMail(),userParam.getId())){
@@ -97,14 +97,16 @@ public class SysUserService {
         sysUserMapper.updateByPrimaryKeySelective(after);
     }
 
-    private boolean checkTelPhoneExis(String telPhone, Integer userId){
-        // TODO
-        return false;
+    private boolean checkTelePhoneExis(String telPhone, Integer userId){
+        return sysUserMapper.countByTelephone(telPhone,userId) > 0;
     }
 
     private boolean checkEmailExis(String mail, Integer userId){
-        // TODO
-        return false;
+        return sysUserMapper.countByMail(mail,userId) > 0;
+    }
+
+    public SysUser findByKeyword(String keyword){
+        return sysUserMapper.findByKeyword(keyword);
     }
 
 }
