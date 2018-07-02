@@ -178,6 +178,7 @@
             var deptList; // 存储树形部门列表
             var deptMap = {}; // 存储map格式的部门信息
             var optionStr;
+            var lastClickDeptId = -1;
 
             var deptListTemplate = $('#deptListTemplate').html();
             Mustache.parse(deptListTemplate);
@@ -219,10 +220,95 @@
             }
 
             /**
-             * 绑定点击
+             * 绑定部门点击事件
              */
             function bindDeptClick(){
+                $(".dept-delete").click(function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var deptId = $(this).attr("data-id");
+                    var deptName = $(this).attr("data-name");
 
+                    if (confirm("确定要删除部门【" + deptName + "】吗？")){
+                        // TODO
+                        console.log("delete dept :" + deptName);
+                    }
+
+                })
+
+                $(".dept-name").click(function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();//阻止冒泡事件
+                    var deptId = $(this).attr("data-id");
+                    handleDeptSelected(deptId);
+                })
+
+                $(".dept-edit").click(function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();//阻止冒泡事件
+                    var deptId = $(this).attr("data-id");
+
+                    $("#dialog-dept-form").dialog({
+                        model:true,
+                        title:"编辑部门",
+                        open:function (event,ui) {
+                            $(".ui-dialog-titlebar-close",$(this).parent()).hide();
+                            optionStr = "<option value=\"0\">-</option>";
+                            recursiveRenderDeptSelect(deptList,1);
+                            $("#deptForm")[0].reset();
+                            $("#parentId").html(optionStr);
+                            $("#deptId").val(deptId);
+                            var targetDept = deptMap[deptId];
+                            if (targetDept){
+                                $("#parentId").val(targetDept.parentId);
+                                $("#deptName").val(targetDept.name);
+                                $("#deptSeq").val(targetDept.seq);
+                                $("#deptRemark").val(targetDept.remark);
+
+                            }
+                        },
+                        buttons : {
+                            "修改" : function (e) {
+                                e.preventDefault();
+                                updateDept(false,function (data) {
+                                    $("#dialog-dept-form").dialog("close");
+                                },function (data) {
+                                    showMessage("更新 部门", data.msg, false);
+                                })
+                            },
+                            "取消" : function (e){
+                                $("#dialog-dept-form").dialog("close");
+                            }
+                        }
+                    })
+                })
+            }
+
+            function handleDeptSelected(deptId){
+                /**
+                 * 删除高亮元素
+                 */
+                if (lastClickDeptId == -1){
+                    var lastDept = $("#dept_" + lastClickDeptId + " .dd2-content: first");
+                    lastDept.removeClass("btn-yellow");
+                    lastDept.removeClass("no-hover");
+                }
+
+                /**
+                 * 增加元素高亮
+                 * @type {*|jQuery|HTMLElement}
+                 */
+                var currentDept = $("#dept_" + deptId + " .dd2-content: first");
+                currentDept.addClass("btn-yellow");
+                currentDept.addClass("no-hover");
+
+                lastClickDeptId = deptId;
+                loadUserList(deptId);
+            }
+
+            function loadUserList(deptId){
+                // TODO
+                console.log("load userList,deptId:"+deptId);
             }
 
             $(".dept-add").click(function () {

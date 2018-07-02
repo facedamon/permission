@@ -73,6 +73,18 @@ public class SysDeptService {
                 .remark(param.getRemark())
                 .build();
 
+        after.setLevel(Level.calculateLevel(getLevel(after.getParentId()),after.getParentId()));
+
+        /**
+         * TODO
+         */
+        after.setOperator("system");
+        /**
+         * TODO
+         */
+        after.setOperatorIp("127.0.0.1");
+        after.setOperatorTime(new Date());
+
         updateWithChild(before,after);
     }
 
