@@ -1,13 +1,10 @@
-import com.mmall.param.UserParam;
-import com.mmall.service.SysUserService;
-import com.mmall.util.PasswordUtil;
+import com.facedamon.param.UserParam;
+import com.facedamon.service.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
 
 /**
  * @Author: facedamon

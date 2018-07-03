@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mmall.dao.SysRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.mmall.model.SysRole" >
+<mapper namespace="com.facedamon.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.facedamon.model.SysRole" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
@@ -23,7 +23,7 @@
     delete from sys_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.model.SysRole" >
+  <insert id="insert" parameterType="com.facedamon.model.SysRole" >
     insert into sys_role (id, name, type, 
       remark, operator, operator_time, 
       operator_ip)
@@ -31,7 +31,7 @@
       #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operatorTime,jdbcType=TIMESTAMP}, 
       #{operatorIp,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.model.SysRole" >
+  <insert id="insertSelective" parameterType="com.facedamon.model.SysRole" >
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.SysRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.facedamon.model.SysRole" >
     update sys_role
     <set >
       <if test="name != null" >
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmall.model.SysRole" >
+  <update id="updateByPrimaryKey" parameterType="com.facedamon.model.SysRole" >
     update sys_role
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},

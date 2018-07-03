@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.mmall.controller" annotation-config="true" use-default-filters="false">
+    <context:component-scan base-package="com.facedamon.controller" annotation-config="true" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -49,8 +49,8 @@
         </property>
     </bean>
 
-    <bean class="com.mmall.common.SpringExceptionResolver"/>
-    <bean class="com.mmall.common.ApplicationContextHelper" lazy-init="false"/>
+    <bean class="com.facedamon.common.SpringExceptionResolver"/>
+    <bean class="com.facedamon.common.ApplicationContextHelper" lazy-init="false"/>
 
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/css/" mapping="/css/**"/>

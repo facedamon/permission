@@ -5,7 +5,7 @@
   Time: 下午12:49
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="com.mmall.model.SysUser" %>
+<%@ page import="com.facedamon.model.SysUser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
