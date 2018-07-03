@@ -1,4 +1,4 @@
-package com.mmall.common;
+package com.mmall.beans;
 
 import com.google.common.collect.Maps;
 import lombok.Getter;

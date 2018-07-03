@@ -187,12 +187,27 @@
     select count(1)
     from sys_user
     <where>
-      <if test="telphone != null">
+      <if test="telephone != null">
         and telephone = #{telephone}
       </if>
       <if test="id != null">
         and id != #{id}
       </if>
     </where>
+  </select>
+
+  <select id="countByDeptId" parameterType="int" resultType="int">
+    select count(1)
+    from sys_user
+    where dept_id = #{deptId}
+  </select>
+
+  <select id="getPageByDeptId" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_user
+    where dept_id = #{deptId}
+    order by username ASC
+    limit #{page.offset}, #{page.pageSize}
   </select>
 </mapper>

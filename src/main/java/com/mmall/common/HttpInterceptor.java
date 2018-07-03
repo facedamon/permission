@@ -37,6 +37,7 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         String url = request.getRequestURI().toString();
         long start = (long) request.getAttribute("START_TIME");
         long end = System.currentTimeMillis();
+        RequestHolder.remove();
         log.info("request completed.url:{},cost:{}",url,end - start);
     }
 }

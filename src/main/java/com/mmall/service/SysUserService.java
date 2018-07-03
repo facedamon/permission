@@ -1,17 +1,22 @@
 package com.mmall.service;
 
 import com.google.common.base.Preconditions;
+import com.mmall.beans.PageQuery;
+import com.mmall.beans.PageResult;
+import com.mmall.common.RequestHolder;
 import com.mmall.dao.SysUserMapper;
 import com.mmall.exception.ParamException;
 import com.mmall.model.SysUser;
 import com.mmall.param.UserParam;
 import com.mmall.util.BeanValidator;
+import com.mmall.util.IpUtil;
 import com.mmall.util.MD5Util;
 import com.mmall.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: facedamon
@@ -46,14 +51,9 @@ public class SysUserService {
                 .remark(userParam.getRemark())
                 .status(userParam.getStatus())
                 .build();
-        /**
-         * TODO
-         */
-        user.setOperator("system");
-        /**
-         * TODO
-         */
-        user.setOperatorIp("127.0.0.1");
+
+        user.setOperator(RequestHolder.getUserLocal().getUsername());
+        user.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getRequestLocal()));
         user.setOperatorTime(new Date());
 
         /**
@@ -85,20 +85,15 @@ public class SysUserService {
                 .status(userParam.getStatus())
                 .remark(userParam.getRemark())
                 .build();
-        /**
-         * TODO
-         */
-        after.setOperator("system");
-        /**
-         * TODO
-         */
-        after.setOperatorIp("127.0.0.1");
+
+        after.setOperator(RequestHolder.getUserLocal().getUsername());
+        after.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getRequestLocal()));
         after.setOperatorTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
     }
 
-    private boolean checkTelePhoneExis(String telPhone, Integer userId){
-        return sysUserMapper.countByTelephone(telPhone,userId) > 0;
+    private boolean checkTelePhoneExis(String telePhone, Integer userId){
+        return sysUserMapper.countByTelephone(telePhone,userId) > 0;
     }
 
     private boolean checkEmailExis(String mail, Integer userId){
@@ -107,6 +102,16 @@ public class SysUserService {
 
     public SysUser findByKeyword(String keyword){
         return sysUserMapper.findByKeyword(keyword);
+    }
+
+    public PageResult<SysUser> getPageByDeptId(int deptId, PageQuery page){
+        BeanValidator.check(page);
+        int count = sysUserMapper.countByDeptId(deptId);
+        if (count > 0){
+            List<SysUser> list = sysUserMapper.getPageByDeptId(deptId,page);
+            return PageResult.<SysUser>builder().total(count).data(list).build();
+        }
+        return PageResult.<SysUser>builder().build();
     }
 
 }

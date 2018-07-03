@@ -1,5 +1,6 @@
 package com.mmall.controller;
 
+import com.mmall.constant.Session;
 import com.mmall.model.SysUser;
 import com.mmall.service.SysUserService;
 import com.mmall.util.MD5Util;
@@ -52,7 +53,7 @@ public class UserController {
             /**
              * loadSuccess
              */
-            request.getSession().setAttribute("user",sysUser);
+            request.getSession().setAttribute(Session.USER.getValue(),sysUser);
             if (StringUtils.isNotBlank(ret)){
                 response.sendRedirect(ret);
             }else {
@@ -67,5 +68,12 @@ public class UserController {
         }
         String path = "signin.jsp";
         request.getRequestDispatcher(path).forward(request,response);
+    }
+
+    @RequestMapping("/logout.page")
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getSession().invalidate();
+        String path = "signin.jsp";
+        response.sendRedirect(path);
     }
 }

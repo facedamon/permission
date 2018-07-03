@@ -1,9 +1,8 @@
 package com.mmall.controller;
 
 import com.mmall.common.ApplicationContextHelper;
-import com.mmall.common.JsonData;
+import com.mmall.beans.JsonData;
 import com.mmall.dao.SysAclModuleMapper;
-import com.mmall.exception.PermissionException;
 import com.mmall.model.SysAclModule;
 import com.mmall.param.TestVo;
 import com.mmall.util.BeanValidator;

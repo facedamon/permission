@@ -1,6 +1,6 @@
 package com.mmall.controller;
 
-import com.mmall.common.JsonData;
+import com.mmall.beans.JsonData;
 import com.mmall.dto.DeptLevelDto;
 import com.mmall.param.DeptParam;
 import com.mmall.service.SysDeptService;

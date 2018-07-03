@@ -1,9 +1,9 @@
 package com.mmall.common;
 
+import com.mmall.beans.JsonData;
 import com.mmall.exception.ParamException;
 import com.mmall.exception.PermissionException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
